@@ -78,7 +78,6 @@ struct pixel** populatePixelsP3(FILE* file, long int width, long int height){
         }
         free(aux);
     }
-
     aux = NULL;
     // Copia os bytes lidos em data para pxs
     memcpy(pxs[0], data, width * height * sizeof(struct pixel));

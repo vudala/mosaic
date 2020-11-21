@@ -62,6 +62,10 @@ struct image* similarTile(struct pixel* main_color, struct image** tiles, int* t
 }
 
 void buildMosaic(struct image* main_img, struct image** tiles, int* tiles_n){
+    if(*tiles_n < 1){
+        fprintf(stderr, "No tiles were found to be used in the mosaic.\n");
+        exit(0);
+    }
     int tile_height = tiles[0]->head->height;
     int tile_width = tiles[0]->head->width;
     int i, j;
@@ -84,33 +88,30 @@ struct image** getTiles(char* dirpath, int* tiles_n){
      e retorna um array com as struct image daqueles arquivos */
     struct dirent** namelist;
     int files_n = scandir(dirpath, &namelist, isPPM, NULL);
+    if (files_n < 0) return NULL;
+    *tiles_n = files_n; // Grava em tiles_n quantos arquivos foram lidos
 
     struct image** tiles = malloc(files_n * sizeof(struct image));
     FILE* img_file = NULL;
     char* filepath = malloc(sizeof(char) * MAXWORDSIZE);
 
-    for(int i = 0; i < files_n;){
-        // Monta o caminho completo dos arquivos, os abre e os transforma em um struct image*
-        strcpy(filepath, dirpath); 
+    for(int i = 0; i < files_n; i++){
+        // Monta o caminho completo do arquivo, o abre e o transforma em um struct image*
+        strcpy(filepath, dirpath);
+        formatFilePath(filepath);
         strcat(filepath, namelist[i]->d_name);
         img_file = fopen(filepath, "r");
         if(img_file == NULL) fireFileException(filepath);
         tiles[i] = buildImage(img_file);
-        i++;
         fclose(img_file);
     }
 
+    // Limpa a memória reservada para as variáveis da função e as desaponta
     free(filepath);
     filepath = NULL;
-
-    // Limpa a memória reservada para namelist
-    for(int i = 0; i < files_n; i++){
-        free(namelist[i]);
-    }
+    for(int i = 0; i < files_n; i++) free(namelist[i]);
     free(namelist);
     namelist = NULL;
-
-    *tiles_n = files_n; // Grava em tiles_n quantos arquivos foram lidos
 
     return tiles;
 }

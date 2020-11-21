@@ -13,6 +13,14 @@ void eraseComment(char* str){
         }
 }
 
+void formatFilePath(char* path){
+    int last_c_index = strlen(path);
+    if( path[last_c_index - 1] != '/' ){
+        path[last_c_index] = '/';
+        path[last_c_index + 1] = '\0';
+    } 
+}
+
 int isPPM(const struct dirent * direntry){
     const char* filename = (char*) direntry->d_name;
     const int type = direntry->d_type;
@@ -55,11 +63,11 @@ void** allocateMatrixMemory(int size, long int width, long int height){
 }
 
 void fireMemException(const char* caller){
-    fprintf(stderr, "Error while trying to allocate memory: %s().\n", caller);
+    fprintf(stderr, "Error while trying to allocate memory: %s()\n", caller);
     exit(1);
 }
 
 void fireFileException(char* filename){
-    fprintf(stderr, "Error while trying to open file: %s.\n", filename);
+    fprintf(stderr, "Error while trying to open file: %s\n", filename);
     exit(1);
 }

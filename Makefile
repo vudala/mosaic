@@ -10,9 +10,6 @@ HEADERS = image.h header.h pixel.h utils.h
 OBJECTS = main.o image.o header.o pixel.o utils.o
 OUTPUT = mosaico
 
-debug: $(OBJECTS)
-	$(CC) -g $(CFLAGS) $(OBJECTS) $(HEADERS) -o $(OUTPUT) $(LDLIBS)
-
 all: $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(HEADERS) -o $(OUTPUT) $(LDLIBS)
 

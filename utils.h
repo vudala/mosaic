@@ -32,4 +32,7 @@ float removeSign(float n);
 // Concatena as strings, as separando por um DEFAULT_DELIMITER
 void appendString(char* target, char* str);
 
+// Formata o filepath para se adequar ao sistema de arquivos
+void formatFilePath(char* path);
+
 #endif
