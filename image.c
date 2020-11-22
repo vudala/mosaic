@@ -64,7 +64,7 @@ struct image* similarTile(struct pixel* main_color, struct image** tiles, int* t
 void buildMosaic(struct image* main_img, struct image** tiles, int* tiles_n){
     if(*tiles_n < 1){
         fprintf(stderr, "No tiles were found to be used in the mosaic.\n");
-        exit(0);
+        exit(1);
     }
     int tile_height = tiles[0]->head->height;
     int tile_width = tiles[0]->head->width;

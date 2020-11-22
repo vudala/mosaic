@@ -18,7 +18,7 @@ void formatFilePath(char* path){
     if( path[last_c_index - 1] != '/' ){
         path[last_c_index] = '/';
         path[last_c_index + 1] = '\0';
-    } 
+    }
 }
 
 int isPPM(const struct dirent * direntry){
