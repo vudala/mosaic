@@ -32,6 +32,7 @@ int main(int argc, char** argv){
                 break;
             default:
                 fprintf(stderr, "Usage: %s -i [input.ppm] -p [pathtotiles] -o [output]\n", argv[0]);
+                exit(1);
                 break;
         }
 
